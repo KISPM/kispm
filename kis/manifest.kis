@@ -1,0 +1,6 @@
+name: KIS Package Manager
+version: 1.0.0
+license: MIT
+web: https://kispm.github.io
+description: A simple package manager
+arch: all
