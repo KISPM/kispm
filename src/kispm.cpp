@@ -46,37 +46,37 @@ int main(int argc, char *argv[])
             continue;
         }
     }
-    
-    cout << "URL: " << url << endl;
-    cout << argv[1] << endl;
-    bool autorun=false;
-    string isarg1 = argv[1];
-    string isarg2 = argv[2];
-    string install="install";
-    string search="search";
-    string isyesshort="-y";
-    string isyeslong="--yes";
-    if (isarg1 == install){
-        if (isarg2 == isyesshort || isarg2 == isyeslong){
-            autorun=true;
-            for (int i = 3; i < argc; ++i){
-                packageexists(url, argv[i]);
+
+    if (urlcheck(url)){
+            cout << "URL: " << url << endl;
+        cout << argv[1] << endl;
+        bool autorun=false;
+        string isarg1 = argv[1];
+        string isarg2 = argv[2];
+        string install="install";
+        string search="search";
+        string isyesshort="-y";
+        string isyeslong="--yes";
+        if (isarg1 == install){
+            if (isarg2 == isyesshort || isarg2 == isyeslong){
+                autorun=true;
+                for (int i = 3; i < argc; ++i){
+                    packageexists(url, argv[i]);
+                }
+            } else {
+                for (int i = 2; i < argc; ++i){
+                    cout << argv[i] << endl;
+                }
             }
-        } else {
+        } else if (isarg1 == search){
             for (int i = 2; i < argc; ++i){
                 cout << argv[i] << endl;
             }
         }
-    } else if (isarg1 == search){
-        for (int i = 2; i < argc; ++i){
-            cout << argv[i] << endl;
-        }
+    } else {
+        cout << "Error: Repo url" << endl;
+        return 1;
     }
 
-    if (urlcheck(url)){
-        cout << "YES" << endl;
-    } else {
-        cout << "NO" << endl;
-    }
     return 0;
 }
