@@ -25,8 +25,14 @@ bool packageexists(string url, string package){
     readdist.open("/tmp/readdist");
     string line;
     while(getline(readdist, line)){
-        cout << line << endl;
+        if (line == package){
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    return false;
 }
 
 vector<string> urls{};
@@ -48,8 +54,6 @@ int main(int argc, char *argv[])
     }
 
     if (urlcheck(url)){
-            cout << "URL: " << url << endl;
-        cout << argv[1] << endl;
         bool autorun=false;
         string isarg1 = argv[1];
         string isarg2 = argv[2];
@@ -61,7 +65,11 @@ int main(int argc, char *argv[])
             if (isarg2 == isyesshort || isarg2 == isyeslong){
                 autorun=true;
                 for (int i = 3; i < argc; ++i){
-                    packageexists(url, argv[i]);
+                    if(packageexists(url, argv[i])){
+                        cout << "Exists" << endl;
+                    } else {
+                        cout << "ERROR, package " << argv[i] << " does not exist!" << endl;
+                    }
                 }
             } else {
                 for (int i = 2; i < argc; ++i){
