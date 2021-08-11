@@ -16,6 +16,13 @@ USAGE: $0 [-s,-i][-y] packagename"
 
 install (){
     echo "Installing ${package}"
+    while read repo
+    do
+        export repo=${repo}
+
+    done < /usr/local/kis/repo.kis
+
+    # wget url -q -O -
 }
 
 search (){
