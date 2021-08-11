@@ -35,6 +35,17 @@ bool packageexists(string url, string package){
     return false;
 }
 
+void getpackagemanifest(string url, string package){
+    string command="wget " + url + "/" + package + ".kis -q -O -";
+    system((command + " > /tmp/readpackagedist").c_str());
+    ifstream readdist;
+    readdist.open("/tmp/readpackagedist");
+    string line;
+    while(getline(readdist, line)){
+        cout << line << endl;
+    }
+}
+
 vector<string> urls{};
 
 // Driver Code
@@ -66,7 +77,7 @@ int main(int argc, char *argv[])
                 autorun=true;
                 for (int i = 3; i < argc; ++i){
                     if(packageexists(url, argv[i])){
-                        cout << "Exists" << endl;
+                        getpackagemanifest(url, argv[i]);
                     } else {
                         cout << "ERROR, package " << argv[i] << " does not exist!" << endl;
                     }
