@@ -18,11 +18,18 @@ install (){
     echo "Installing ${package}"
     while read repo
     do
-        export repo=${repo}
-
+        export url=$(perl -lne 'print "$1" if /^url: (.*)/' /usr/local/kis/repo.kis)
     done < /usr/local/kis/repo.kis
+    export dist=$(wget ${url}/pycalc.kis -q -O -)
 
-    # wget url -q -O -
+    export regex='(https?|ftp|file)://[-A-Za-z0-9\+&@#/%?=~_|!:,.;]*[-A-Za-z0-9\+&@#/%=~_|]'
+    
+    for item in ${dist}
+    do
+        if [ "${item}" = "${regex}" ]; then
+            echo "${item}"
+        fi
+    done
 }
 
 search (){
